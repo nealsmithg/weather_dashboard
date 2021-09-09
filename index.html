@@ -5,10 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>new webpage</title>
   <link rel="stylesheet" href="./assets/css/reset.css" />
+  <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
   <link rel="stylesheet" href="./assets/css/style.css" />
 </head>
 
 <body>
+<header>Weather Dashboard</header>
+<aside class="d-flex flex-column col-3">
+  <h2>Search for a City:</h2>
+  <input type="text" id="search_city" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+  <button type="button" class="btn btn-primary">Search</button>
+  <div class="past_searches"></div>
+</aside>
 
 
   <script src="./assets/js/script.js"></script>
