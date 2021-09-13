@@ -36,17 +36,22 @@ function getWeather(lat, long){
     };
 
 function creatForcast(data){
+    todayForcast(data);
+    weekForcast(data);
+};
+
+function todayForcast(data){
     var container = $("#info")
     var today = $("<div class='col-12' id='today'>");
     var todayHeader = $("<h2 id='todayhead'>");
-    var todayTemp = $("<h3>");
-    var todayWind = $("<h3>");
-    var todayHumid = $("<h3>");
-    var todayUV = $("<h3>");
-    todayHeader.text(city+" ("+moment().format("l")+")");
+    var todayTemp = $("<h4>");
+    var todayWind = $("<h4>");
+    var todayHumid = $("<h4>");
+    var todayUV = $("<h4>");
+    todayHeader.text(city+ " (" + moment().format("l") + ")");
     todayHeader.append("<img src='http://openweathermap.org/img/wn/"+ data.current.weather[0].icon+"@2x.png'>")
     todayTemp.text("Temp: "+ data.current.temp);
-    todayWind.text("wind: "+ data.current.wind_speed);
+    todayWind.text("Wind: "+ data.current.wind_speed);
     todayHumid.text("Humidity: "+ data.current.humidity);
     todayUV.text("UV index:" + data.current.uvi);
     today.append(todayHeader);  
@@ -57,7 +62,22 @@ function creatForcast(data){
     container.append(today);
 };
 
-
+function weekForcast(data){
+    var container = $("#info");
+    var week = $("<div class='d-flex flex-row justify-content-around col-12' id='week'>");
+    var weekHeader = $("<h2 id='weekhead'>");
+    week.append(weekHeader)
+    for (var i=0; i<5; i++){
+        var day = $("<div class='col-2 day'>");
+        day.append("<h3 class='day_date'>" + moment().format("l"));
+        day.append("<img src='http://openweathermap.org/img/wn/"+ data.daily[i].weather[0].icon+"@2x.png'>");
+        day.append("<h4>Temp: " + data.daily[i].temp.day);
+        day.append("<h4>Wind: " + data.daily[i].wind_speed);
+        day.append("<h4>Humidity: " + data.daily[i].humidity);
+        week.append(day);
+    };
+    container.append(week);
+};
     
 
     
