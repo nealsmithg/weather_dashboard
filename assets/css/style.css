@@ -25,3 +25,10 @@ h2{
     border: 1px solid black;
     border-radius: 5px;
 }
+
+#today{
+    border: 1px solid black
+}
+#info h3{
+    font-size: 20px;
+}
