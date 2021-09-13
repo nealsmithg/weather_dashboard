@@ -1,9 +1,14 @@
 var city;
+var holdCity = [];
 var lat;
 var long;
+var oldSearch = $("#old_search");
 
 $("#search").click(function(){
     city = $("#search_city").val();
+    oldSearch.append("<button value='" + city + "'>" + city + "</button>");
+    holdCity[holdCity.length] = city;
+    localStorage.setItem("holdCity", JSON.stringify(holdCity));
     getLocation();
 })
 
@@ -78,9 +83,14 @@ function weekForcast(data){
     };
     container.append(week);
 };
-    
 
-    
+function init(){
+    if(JSON.parse(localStorage.getItem("holdCity") !== null)){
+    holdCity = JSON.parse(localStorage.getItem("holdCity"));
+    };
+    for (var i=0; i<holdCity.length; i++){
+        oldSearch.append("<button value='" + holdCity[i] + "'>" + holdCity[i] + "</button>");
+    }
+}
 
-
- 
+init();
