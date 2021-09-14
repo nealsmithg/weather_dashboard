@@ -10,6 +10,7 @@ $("#search").click(function(){
     getLocation();
     holdCity[holdCity.length] = city;
     localStorage.setItem("holdCity", JSON.stringify(holdCity));
+    oldSearch.append("<button value='" + city + "'  class='btn btn-primary'>" + city + "</button>");
 });
 
 $("#old_search").click(function(event){
@@ -24,7 +25,6 @@ function getLocation(){
         .then(function (response) {
             if (response.ok) {
                 response.json().then(function (data) {
-                    oldSearch.append("<button value='" + city + "'  class='btn btn-primary'>" + city + "</button>");
                     lat = data[0].lat;
                     long = data[0].lon;
                     getWeather(lat, long)
@@ -76,10 +76,11 @@ function todayForcast(data){
 function weekForcast(data){
     var week = $("<div class='d-flex flex-row justify-content-around col-12' id='week'>");
     var weekHeader = $("<h2 id='weekhead'>");
-    week.append(weekHeader)
-    for (var i=0; i<5; i++){
+    weekHeader.append("<h2>5-Day Forcast</h2>")
+    container.append(weekHeader)
+    for (var i=1; i<6; i++){
         var day = $("<div class='col-2 day'>");
-        day.append("<h3 class='day_date'>" + moment().format("l"));
+        day.append("<h3 class='day_date'>" + moment().add(i, 'days').format("l"));
         day.append("<img src='http://openweathermap.org/img/wn/"+ data.daily[i].weather[0].icon+"@2x.png'>");
         day.append("<h4>Temp: " + data.daily[i].temp.day);
         day.append("<h4>Wind: " + data.daily[i].wind_speed);
