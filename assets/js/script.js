@@ -89,7 +89,7 @@ function init(){
     holdCity = JSON.parse(localStorage.getItem("holdCity"));
     };
     for (var i=0; i<holdCity.length; i++){
-        oldSearch.append("<button value='" + holdCity[i] + "'>" + holdCity[i] + "</button>");
+        oldSearch.append("<button value='" + holdCity[i] + "' class='btn btn-primary'>" + holdCity[i] + "</button>");
     }
 }
 

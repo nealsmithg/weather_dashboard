@@ -21,6 +21,11 @@ h2{
     font-weight: bold;
 }
 
+.btn{
+    border: 1px solid black;
+    margin: 2px;
+}
+
 #search_city{
     border: 1px solid black;
     border-radius: 5px;
