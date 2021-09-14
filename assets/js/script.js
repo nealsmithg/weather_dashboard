@@ -2,23 +2,24 @@ var city;
 var holdCity = [];
 var lat;
 var long;
+var container = $("#info");
 var oldSearch = $("#old_search");
 
 $("#search").click(function(){
     city = $("#search_city").val();
-    oldSearch.append("<button value='" + city + "'>" + city + "</button>");
-    holdCity[holdCity.length] = city;
-    localStorage.setItem("holdCity", JSON.stringify(holdCity));
     getLocation();
 })
 
 function getLocation(){
-    city = city.split(' ').join('+')
-    var cityUrl = "http://api.openweathermap.org/geo/1.0/direct?q="+ city +"&limit=1&appid=ce2aa6f67e317ff5f10deb7b9c6358f1";
+    cityHold = city.split(' ').join('+')
+    var cityUrl = "http://api.openweathermap.org/geo/1.0/direct?q="+ cityHold +"&limit=1&appid=ce2aa6f67e317ff5f10deb7b9c6358f1";
     fetch(cityUrl)
         .then(function (response) {
             if (response.ok) {
                 response.json().then(function (data) {
+                    oldSearch.append("<button value='" + city + "'  class='btn btn-primary'>" + city + "</button>");
+                    holdCity[holdCity.length] = city;
+                    localStorage.setItem("holdCity", JSON.stringify(holdCity));
                     lat = data[0].lat;
                     long = data[0].lon;
                     getWeather(lat, long)
@@ -41,12 +42,12 @@ function getWeather(lat, long){
     };
 
 function creatForcast(data){
+    container.empty();
     todayForcast(data);
     weekForcast(data);
 };
 
 function todayForcast(data){
-    var container = $("#info")
     var today = $("<div class='col-12' id='today'>");
     var todayHeader = $("<h2 id='todayhead'>");
     var todayTemp = $("<h4>");
@@ -68,7 +69,6 @@ function todayForcast(data){
 };
 
 function weekForcast(data){
-    var container = $("#info");
     var week = $("<div class='d-flex flex-row justify-content-around col-12' id='week'>");
     var weekHeader = $("<h2 id='weekhead'>");
     week.append(weekHeader)
