@@ -8,7 +8,14 @@ var oldSearch = $("#old_search");
 $("#search").click(function(){
     city = $("#search_city").val();
     getLocation();
-})
+    holdCity[holdCity.length] = city;
+    localStorage.setItem("holdCity", JSON.stringify(holdCity));
+});
+
+$("#old_search").click(function(event){
+    city = event.target.value;
+    getLocation();
+});
 
 function getLocation(){
     cityHold = city.split(' ').join('+')
@@ -18,15 +25,13 @@ function getLocation(){
             if (response.ok) {
                 response.json().then(function (data) {
                     oldSearch.append("<button value='" + city + "'  class='btn btn-primary'>" + city + "</button>");
-                    holdCity[holdCity.length] = city;
-                    localStorage.setItem("holdCity", JSON.stringify(holdCity));
                     lat = data[0].lat;
                     long = data[0].lon;
                     getWeather(lat, long)
                 });
             } ;
         });
-    };
+};
 
 function getWeather(lat, long){
     var weatherUrl = "https://api.openweathermap.org/data/2.5/onecall?lat="+ lat +"&lon="+ long +"&exclude=minutely,hourly,alerts&units=imperial&appid=ce2aa6f67e317ff5f10deb7b9c6358f1"
@@ -39,7 +44,7 @@ function getWeather(lat, long){
                 });
             };
         });
-    };
+};
 
 function creatForcast(data){
     container.empty();
