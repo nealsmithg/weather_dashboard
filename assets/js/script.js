@@ -20,7 +20,7 @@ $("#old_search").click(function(event){
 
 function getLocation(){
     cityHold = city.split(' ').join('+')
-    var cityUrl = "http://api.openweathermap.org/geo/1.0/direct?q="+ cityHold +"&limit=1&appid=ce2aa6f67e317ff5f10deb7b9c6358f1";
+    var cityUrl = "https://api.openweathermap.org/geo/1.0/direct?q="+ cityHold +"&limit=1&appid=ce2aa6f67e317ff5f10deb7b9c6358f1";
     fetch(cityUrl)
         .then(function (response) {
             if (response.ok) {
